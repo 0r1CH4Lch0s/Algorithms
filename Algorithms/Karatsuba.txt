@@ -1,0 +1,24 @@
+# a working karatsuba module!
+def karatsuba(x,y):
+    '''x, y are integers of length n, m respectively. Karatsuba
+    multiplication attempts to improve on regular multiplication:
+    x*y ~ (ad+bc)*10^(n/2) + ac*10^n + bd.  ad + bc = (a+b)(c+d) -ac-bd.
+    We have to be careful with the exponents in the above formula.'''
+    n = len(str(x))
+    m = len(str(y))
+    i = min(m,n)
+    # I am not sure how lazy the following approach to the basis case is
+    if n == 1 or m == 1:                             
+        return x*y
+    # now we split x and y up ready for karatsuba multiplication
+    a = int(str(x)[:(n - (i+1)/2)])
+    b = int(str(x)[(n - (i+1)/2):])
+    c = int(str(y)[:(m - (i+1)/2)])
+    d = int(str(y)[(m - (i+1)/2):])
+    # the next block of code solves the karatsuba(a,c)*10**? problem
+    if i%2 != 0: 
+        j = i+1
+    else:
+        j = i
+    return (karatsuba((a+b),(c+d)) - karatsuba(a,c) \
+    - karatsuba(b,d))*10**((i+1)/2) + karatsuba(a,c)*10**(j) + karatsuba(b,d)

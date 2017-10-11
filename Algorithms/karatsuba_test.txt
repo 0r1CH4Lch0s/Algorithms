@@ -1,0 +1,9 @@
+#admittedly this is as simple as it gets with testing. I haven't really needed to use test suites yet, but I do think they might come in handy once I start larger projects.
+import random
+from Karatsuba import karatsuba
+for k in range(1000):
+    i = random.randint(0,100000000000)
+    j = random.randint(0,100000000000000)
+    if karatsuba(i,j) != i*j:
+        print i,j
+    

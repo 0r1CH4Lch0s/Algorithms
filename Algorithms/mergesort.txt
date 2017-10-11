@@ -1,0 +1,26 @@
+#a well-known sorting module known as mergesort
+def mergeSort(L):
+    # L is a list of length n
+    n = len(L)
+    if n > 2:
+        B = mergeSort(L[:(n/2)])
+        C = mergeSort(L[(n/2):])
+    elif n == 2:
+        return [min(L[0], L[1]), max(L[0], L[1])]
+    elif n == 1:
+        return L
+    D = []
+    while B != [] and C != []:
+        if B[0] < C[0]:
+            Btransfer = B.pop(0)
+            D.append(Btransfer)
+        else:
+            C[0] < B[0]
+            Ctransfer = C.pop(0)
+            D.append(Ctransfer)
+    if B == []:
+        D.extend(C)
+        return D
+    elif C == []:
+        D.extend(B)
+        return D

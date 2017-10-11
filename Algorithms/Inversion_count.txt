@@ -1,0 +1,41 @@
+#counts the number of split inversions (A[i] > A[j] for i < j) in a List.
+CountSplitInv = 0
+import urllib
+def sort_and_count(L):
+    # L is a list of length n
+    global CountSplitInv
+    n = len(L)
+    if n > 2:
+        B = sort_and_count(L[:(n/2)])
+        C = sort_and_count(L[(n/2):])
+    elif n == 2:
+        if L[1] < L[0]:
+            CountSplitInv += 1
+        return [min(L[0], L[1]), max(L[0], L[1])]
+    elif n == 1:
+        return L
+    D = []
+    while B != [] and C != []:
+        if B[0] < C[0]:
+            Btransfer = B.pop(0)
+            D.append(Btransfer)
+        else:
+            C[0] < B[0]
+            CountSplitInv += len(B)
+            Ctransfer = C.pop(0)
+            D.append(Ctransfer)
+    if B == []:
+        D.extend(C)
+        return D
+    elif C == []:
+        D.extend(B)
+        return D        
+
+longList = []
+for line in urllib.urlopen("https://d3c33hcgiwev3.cloudfront.net/_32387ba40b36359a38625cbb397eee65_QuickSort.txt?Expires=1490054400&Signature=lelzgjYDtF6iXUtIqFIgmKwpk9WljFrH-F78MDFoPqf5UAotl72u23X5OISscXG5AmrjnPLt0om1yXMZMkBWl9D3TCdkJQgMw~ZRsr6ilZc0dLALhV0BuNaaDcss1DQRcQdbuq1MdXH7erFLx~c4hFOFrlunO9r-jloqIkBgA9A_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A"):
+    longList.append(int(line))
+    
+print sort_and_count(longList)
+print CountSplitInv
+'''short_list = [2,3,6,4,8,7,1,5]
+print sort_and_count(short_list)'''
